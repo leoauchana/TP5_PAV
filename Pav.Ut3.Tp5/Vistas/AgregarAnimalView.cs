@@ -1,5 +1,7 @@
-﻿using Pav.Ut3.Tp5.Modelo;
+﻿using Pav.Ut3.Tp5.Interfaces;
+using Pav.Ut3.Tp5.Modelo;
 using Pav.Ut3.Tp5.Persistencia;
+using Pav.Ut3.Tp5.Presentadores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +14,13 @@ using System.Windows.Forms;
 
 namespace Pav.Ut3.Tp5.Vistas
 {
-    public partial class AgregarAnimalView : Form
+    public partial class AgregarAnimalView : Form, IAgregarAnimal
     {
         private SectoresView _sectorView = new SectoresView();
+        private AgregarAnimalPresenter _presentadorAgregar;
         public AgregarAnimalView()
         {
+            _presentadorAgregar = new AgregarAnimalPresenter(this);
             InitializeComponent();
             especieBindingSource.DataSource = Repositorio.Instance.Especies.ToArray();
             paisBindingSource.DataSource = Repositorio.Instance.Paises.ToArray();
@@ -44,35 +48,42 @@ namespace Pav.Ut3.Tp5.Vistas
 
         private void btAgregar_Click(object sender, EventArgs e)
         {
-            if (clbSectores.SelectedItem is null || clbSectores.SelectedItems.Count > 1) return;
+            if (clbSectores.SelectedItem is null || clbSectores.SelectedItems.Count > 1 || cbPais.SelectedItem is null) return;
             if (!int.TryParse(clbSectores.SelectedItem.ToString(), out var numSector)) return;
             var sectorSeleccionado = Repositorio.Instance.Sectores[numSector - 1];
-            Mamifero? animal;
-            if (!int.TryParse(txtEdad.Text, out _) || !double.TryParse(txtPeso.Text, out _)) return;
-            if (sectorSeleccionado!.TipoAlimentacion.Equals(TipoAlimentacion.CARNIVORO))
+            if (!int.TryParse(txtEdad.Text, out int edad) || !double.TryParse(txtPeso.Text, out double peso) || (double.TryParse(txtNombre.Text, out _))) return;
+            var nombre = txtNombre.Text;
+            var especie = cbEspecie.SelectedItem as Especie;
+            var pais = cbPais.SelectedItem as Pais;
+            var verificacion = _presentadorAgregar.AgregarAnimal(nombre, especie!, edad, pais!, peso, sectorSeleccionado);
+            if (verificacion)
             {
-                animal = new Carnivoro()
-                {
-                    Nombre = txtNombre.Text,
-                    Especie = cbEspecie.SelectedItem as Especie,
-                    Edad = int.Parse(txtEdad.Text),
-                    Origen = cbPais.SelectedItem as Pais,
-                    Peso = double.Parse(txtPeso.Text),
-                };
+                _sectorView.Iniciar.Invoke();
+                Hide();
+                MostrarMensajes("Se guardo correctamente", verificacion);
+                _sectorView.Show();
             }
-            else animal = new Herbivoro()
+            else
             {
-                Nombre = txtNombre.Text,
-                Especie = cbEspecie.SelectedItem as Especie,
-                Edad = int.Parse(txtEdad.Text),
-                Origen = cbPais.SelectedItem as Pais,
-                Peso = double.Parse(txtPeso.Text),
-            };
-            if (animal is null) return;
-            sectorSeleccionado.AgregarAnimal(animal);
-            Dispose();
-            _sectorView.Show();
-            _sectorView.CargarSectores();
+                MostrarMensajes("Error al guardar", verificacion);
+            }
+        
+    }
+
+        private void cbPais_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        public void MostrarMensajes(string mensaje, bool validacion)
+        {
+            if (validacion)
+            {
+                MessageBox.Show(mensaje, "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -31,6 +31,9 @@ public class Sector
         if (animal is null) return;
         if (Animales.Count == Limite) return;
         Animales.Add(animal);
-        Console.WriteLine("animal cargado");
+    }
+    public string EspeciesText()
+    {
+        return string.Join(" ,", Animales.Select(e => e.Especie?.Nombre));
     }
 }

@@ -7,38 +7,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pav.Ut3.Tp5.Interfaces;
 using Pav.Ut3.Tp5.Modelo;
 using Pav.Ut3.Tp5.Persistencia;
+using Pav.Ut3.Tp5.Presentadores;
 namespace Pav.Ut3.Tp5.Vistas
 {
-    public partial class DetalleSectorView : Form
+    public partial class DetalleSectorView : Form, IDetalleSector
     {
-
+        private DetalleSectorPresenter _detalleSector;
         public DetalleSectorView(int nroSector)
         {
+            _detalleSector = new DetalleSectorPresenter(this);
             InitializeComponent();
             CargarDatos(nroSector);
         }
 
-        private void CargarDatos(int nroSector)
+        public void CargarDatos(int nroSector)
         {
-            if (nroSector <= 0) return;
-            var sector = Repositorio.Instance.Sectores[nroSector - 1];
-            if (sector is null) return;
-            if (sector.TipoAlimentacion.Equals(TipoAlimentacion.CARNIVORO)) BackColor = Color.IndianRed;
-            if (sector.TipoAlimentacion.Equals(TipoAlimentacion.HERBIVORO)) BackColor = Color.DarkOliveGreen;
-            if (sector.Animales.Count == 0) BackColor = Color.Gray;
-            lblNumSector.Text = $"{sector.Numero}";
-            lblNomEmpleado.Text = sector.Empleado?.Nombre;
-            foreach (Mamifero animal in sector.Animales)
+            var listaAnimales = _detalleSector.DevolverListaAnimales(nroSector, out Empleado? empleado);
+            if (listaAnimales == null || empleado is null)
             {
-                dgvEspecies.Rows.Add(animal.Especie!.Nombre, animal.Edad, animal.Peso, animal.Origen!.Nombre);
+                MostrarMensaje("Error de mostrado");
+            }
+            else
+            {
+                var tipoAlimentacion = Repositorio.Instance.Sectores[nroSector - 1].TipoAlimentacion;
+                Color color = _detalleSector.DevolverColor(tipoAlimentacion);
+                BackColor = color;
+                dgvEspecies.BackgroundColor = color;
+                lblNumSector.Text = $"{nroSector}";
+                lblNomEmpleado.Text = empleado?.Nombre;
+                foreach (Mamifero animal in listaAnimales!)
+                {
+                    dgvEspecies.Rows.Add(animal.Especie!.Nombre, animal.Edad, animal.Peso, animal.Origen!.Nombre);
+                }
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Dispose();
+        }
+
+
+        public void MostrarMensaje(string mensaje)
+        {
+            MessageBox.Show(mensaje,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
         }
     }
 }

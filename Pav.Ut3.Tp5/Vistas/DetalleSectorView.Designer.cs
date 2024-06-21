@@ -48,13 +48,22 @@
             // 
             // dgvEspecies
             // 
+            dgvEspecies.AllowUserToAddRows = false;
+            dgvEspecies.AllowUserToDeleteRows = false;
+            dgvEspecies.AllowUserToResizeColumns = false;
+            dgvEspecies.AllowUserToResizeRows = false;
+            dgvEspecies.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEspecies.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dgvEspecies.BackgroundColor = Color.White;
+            dgvEspecies.BorderStyle = BorderStyle.None;
             dgvEspecies.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEspecies.Columns.AddRange(new DataGridViewColumn[] { Especie, Edad, Peso, Pais });
             dgvEspecies.Location = new Point(136, 135);
             dgvEspecies.Name = "dgvEspecies";
+            dgvEspecies.ReadOnly = true;
             dgvEspecies.RowHeadersWidth = 51;
             dgvEspecies.RowTemplate.Height = 29;
-            dgvEspecies.Size = new Size(550, 242);
+            dgvEspecies.Size = new Size(550, 182);
             dgvEspecies.TabIndex = 0;
             // 
             // Especie
@@ -62,28 +71,28 @@
             Especie.HeaderText = "Especie";
             Especie.MinimumWidth = 6;
             Especie.Name = "Especie";
-            Especie.Width = 125;
+            Especie.ReadOnly = true;
             // 
             // Edad
             // 
             Edad.HeaderText = "Edad";
             Edad.MinimumWidth = 6;
             Edad.Name = "Edad";
-            Edad.Width = 125;
+            Edad.ReadOnly = true;
             // 
             // Peso
             // 
             Peso.HeaderText = "Peso";
             Peso.MinimumWidth = 6;
             Peso.Name = "Peso";
-            Peso.Width = 125;
+            Peso.ReadOnly = true;
             // 
             // Pais
             // 
             Pais.HeaderText = "Pais";
             Pais.MinimumWidth = 6;
             Pais.Name = "Pais";
-            Pais.Width = 125;
+            Pais.ReadOnly = true;
             // 
             // sectoresBindingSource
             // 

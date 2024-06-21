@@ -26,15 +26,11 @@ namespace Pav.Ut3.Tp5.Vistas
             lblNroSector.Text = $"{sector.Numero}";
             lblUbicacion.Text = sector.Ubicacion();
             lblEmpleado.Text = sector.Empleado!.Nombre;
-            lblEspecies.Text = EspeciesText(sector);
-            if (sector.TipoAlimentacion.Equals(TipoAlimentacion.CARNIVORO)) BackColor = Color.IndianRed;
-            else if (sector.TipoAlimentacion.Equals(TipoAlimentacion.HERBIVORO)) BackColor = Color.DarkOliveGreen;
+            lblEspecies.Text = sector.EspeciesText();
+            if (sector.TipoAlimentacion.Equals(TipoAlimentacion.CARNIVORO)) BackColor = Color.OrangeRed;
+            else if (sector.TipoAlimentacion.Equals(TipoAlimentacion.HERBIVORO)) BackColor = Color.GreenYellow;
             if (sector.Animales.Count == 0) BackColor = Color.Gray;
             btnVer.BackColor = BackColor;
-        }
-        private string EspeciesText(Sector sector)
-        {
-            return string.Join(" ,", sector.Animales.Select(e => e.Especie?.Nombre));
         }
 
         private void btnVer_Click(object sender, EventArgs e)
@@ -46,8 +42,12 @@ namespace Pav.Ut3.Tp5.Vistas
         {
             if (!int.TryParse(lblNroSector.Text, out int nroSector)) return;
             DetalleSectorView detalleSector = new DetalleSectorView(nroSector);
-            detalleSector.Show();
-            _sector?.Hide();
+            detalleSector.ShowDialog();
+        }
+
+        private void btnVer_Click_2(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -39,64 +39,63 @@
             // lblNroSector
             // 
             lblNroSector.FlatStyle = FlatStyle.System;
-            lblNroSector.Location = new Point(0, 14);
+            lblNroSector.Font = new Font("Perpetua Titling MT", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblNroSector.ForeColor = Color.White;
+            lblNroSector.Location = new Point(0, 0);
             lblNroSector.Name = "lblNroSector";
-            lblNroSector.Size = new Size(204, 28);
+            lblNroSector.Size = new Size(255, 63);
             lblNroSector.TabIndex = 0;
             lblNroSector.Text = "0";
             lblNroSector.TextAlign = ContentAlignment.MiddleCenter;
-            lblNroSector.UseWaitCursor = true;
             // 
             // lblEspecies
             // 
-            lblEspecies.Location = new Point(3, 42);
+            lblEspecies.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblEspecies.Location = new Point(3, 63);
             lblEspecies.Name = "lblEspecies";
-            lblEspecies.Size = new Size(201, 50);
+            lblEspecies.Size = new Size(252, 68);
             lblEspecies.TabIndex = 1;
             lblEspecies.Text = "Especies";
             lblEspecies.TextAlign = ContentAlignment.MiddleCenter;
-            lblEspecies.UseWaitCursor = true;
             // 
             // lblCantAnimales
             // 
-            lblCantAnimales.Location = new Point(3, 92);
+            lblCantAnimales.Font = new Font("Segoe UI Black", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblCantAnimales.Location = new Point(0, 131);
             lblCantAnimales.Name = "lblCantAnimales";
-            lblCantAnimales.Size = new Size(201, 36);
+            lblCantAnimales.Size = new Size(252, 60);
             lblCantAnimales.TabIndex = 2;
             lblCantAnimales.Text = "0";
             lblCantAnimales.TextAlign = ContentAlignment.MiddleCenter;
-            lblCantAnimales.UseWaitCursor = true;
             // 
             // lblUbicacion
             // 
-            lblUbicacion.ImageAlign = ContentAlignment.MiddleLeft;
-            lblUbicacion.Location = new Point(6, 182);
+            lblUbicacion.Font = new Font("Segoe UI Black", 10F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblUbicacion.Location = new Point(3, 253);
             lblUbicacion.Name = "lblUbicacion";
-            lblUbicacion.Size = new Size(198, 57);
+            lblUbicacion.Size = new Size(249, 57);
             lblUbicacion.TabIndex = 3;
             lblUbicacion.Text = "Ubicacion";
             lblUbicacion.TextAlign = ContentAlignment.MiddleCenter;
-            lblUbicacion.UseWaitCursor = true;
             // 
             // lblEmpleado
             // 
-            lblEmpleado.Location = new Point(0, 128);
+            lblEmpleado.Font = new Font("Segoe UI Black", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblEmpleado.Location = new Point(0, 191);
             lblEmpleado.Name = "lblEmpleado";
-            lblEmpleado.Size = new Size(204, 54);
+            lblEmpleado.Size = new Size(255, 62);
             lblEmpleado.TabIndex = 4;
             lblEmpleado.Text = "Empleado";
             lblEmpleado.TextAlign = ContentAlignment.MiddleCenter;
-            lblEmpleado.UseWaitCursor = true;
             // 
             // btnVer
             // 
-            btnVer.Location = new Point(53, 254);
+            btnVer.Location = new Point(83, 331);
             btnVer.Name = "btnVer";
             btnVer.Size = new Size(94, 29);
             btnVer.TabIndex = 5;
             btnVer.Text = "Ver";
             btnVer.UseVisualStyleBackColor = true;
-            btnVer.UseWaitCursor = true;
             btnVer.Click += btnVer_Click_1;
             // 
             // pnlSector
@@ -111,8 +110,7 @@
             Controls.Add(lblEspecies);
             Controls.Add(lblNroSector);
             Name = "pnlSector";
-            Size = new Size(204, 283);
-            UseWaitCursor = true;
+            Size = new Size(255, 363);
             ResumeLayout(false);
         }
 
